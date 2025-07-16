@@ -3,6 +3,8 @@
 namespace App\Livewire;
 
 use App\Models\Note;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Livenote extends Component
@@ -16,6 +18,11 @@ class Livenote extends Component
 
     public function mount() {
         $this->refresh();
+    }
+
+    #[Computed]
+    public function noteFormId () {
+        return $this->title ? "{$this->id}:{$this->title}" : "new-note";
     }
 
     public function refresh () {
@@ -36,6 +43,7 @@ class Livenote extends Component
             ->get();
     }
 
+    #[On('show')]
     public function show ($id) {
         $note = Note::find($id);
         $this->id = $note->id;
@@ -43,11 +51,7 @@ class Livenote extends Component
         $this->text = $note->text;
         $this->showNote = true;
     }
-
-    public function save () {
-        $this->showNote = false;
-    }
-
+    
     public function render() {
         return view('livewire.livenote');
     }

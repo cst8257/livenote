@@ -4,19 +4,12 @@
             <button class="btn btn-primary btn-lg rounded-circle" wire:click="create">&plus;</button>
         </section>
 
-        <search class="row mb-3">
-            <div class="col">
-                <input type="search" class="form-control" name="search" placeholder="Search..."
-                    wire:model.live="search">
-            </div>
-        </search>
+        <livewire:search wire:model.live="search" />
 
         @if (count($notes)) 
         <x-list-group>
             @foreach ($notes as $note)
-                <li class="list-group-item" wire:click="show({{ $note['id'] }})" style="cursor:pointer">
-                    {{ $note['title'] }}
-                </li>
+                <livewire:list-item :key="$note->id.'-'.$note->title" :$note @deleted="refresh" />
             @endforeach
         </x-list-group>
         @else
@@ -25,15 +18,7 @@
     </div>
     <div class="col">
         @if ($showNote) 
-        <form class="card my-5" wire:submit="save">
-            <div class="card-header">
-                <input type="text" class="form-control" wire:model="title" placeholder="Title...">
-            </div>
-            <div class="card-body">
-                <textarea class="form-control mb-3" placeholder="Text..." wire:model="text"></textarea>
-                <button class="btn btn-primary">Save</button>
-            </div>
-        </form>
+        <livewire:note-form :key="$this->noteFormId" :$id :$title :$text @saved="refresh" />
         @endif
     </div>
 </div>
