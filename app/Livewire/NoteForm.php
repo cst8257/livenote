@@ -15,6 +15,7 @@ class NoteForm extends Component
         $note = !empty($this->id) ? Note::find($this->id) : new Note();
         $note->title = $this->title;
         $note->text = $this->text;
+        $note->user_id = 1;
         $note->save();
 
         $this->dispatch('saved');
