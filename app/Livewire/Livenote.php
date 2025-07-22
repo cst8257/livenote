@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Note;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -26,7 +27,7 @@ class Livenote extends Component
     }
 
     public function refresh () {
-        $this->notes = Note::all();
+        $this->notes = Auth::user()->notes;
         $this->showNote = false;
     }
 
