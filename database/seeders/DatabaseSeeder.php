@@ -14,15 +14,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Note::create(['title' => 'Meeting Notes', 'text' => 'Discuss project milestones and deadlines.']);
-        Note::create(['title' => 'Shopping List', 'text' => 'Buy milk, eggs, bread, and coffee.']);
-        Note::create(['title' => 'Workout Plan', 'text' => 'Monday: Cardio, Tuesday: Strength training.']);
-        Note::create(['title' => 'Recipe Ideas', 'text' => 'Try making lasagna and chocolate cake.']);
-        Note::create(['title' => 'Travel Itinerary', 'text' => 'Visit Paris, Rome, and Barcelona.']);
-        Note::create(['title' => 'Book Recommendations', 'text' => 'Read "1984" by George Orwell and "Dune" by Frank Herbert.']);
-        Note::create(['title' => 'Event Planning', 'text' => 'Organize the annual company picnic.']);
-        Note::create(['title' => 'Learning Goals', 'text' => 'Complete online course on web development.']);
-        Note::create(['title' => 'Daily Journal', 'text' => 'Reflect on today’s achievements and challenges.']);
-        Note::create(['title' => 'Gift Ideas', 'text' => 'Consider buying a watch or a book for the birthday.']);
+        User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+        ]);
+
+        User::factory(4)->create();
+
+        Note::create(['title' => 'Meeting Notes', 'text' => 'Discuss project milestones and deadlines.', 'user_id' => 1]);
+        Note::create(['title' => 'Shopping List', 'text' => 'Buy milk, eggs, bread, and coffee.', 'user_id' => 1]);
+        Note::create(['title' => 'Workout Plan', 'text' => 'Monday: Cardio, Tuesday: Strength training.', 'user_id' => 1]);
+        Note::create(['title' => 'Recipe Ideas', 'text' => 'Try making lasagna and chocolate cake.', 'user_id' => 2]);
+        Note::create(['title' => 'Travel Itinerary', 'text' => 'Visit Paris, Rome, and Barcelona.', 'user_id' => 2]);
+        Note::create(['title' => 'Book Recommendations', 'text' => 'Read "1984" by George Orwell and "Dune" by Frank Herbert.', 'user_id' => 3]);
+        Note::create(['title' => 'Event Planning', 'text' => 'Organize the annual company picnic.', 'user_id' => 4]);
+        Note::create(['title' => 'Learning Goals', 'text' => 'Complete online course on web development.', 'user_id' => 4]);
+        Note::create(['title' => 'Daily Journal', 'text' => 'Reflect on today’s achievements and challenges.', 'user_id' => 5]);
+        Note::create(['title' => 'Gift Ideas', 'text' => 'Consider buying a watch or a book for the birthday.', 'user_id' => 5]);
     }
 }
