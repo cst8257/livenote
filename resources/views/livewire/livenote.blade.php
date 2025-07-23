@@ -18,7 +18,7 @@
     </div>
     <div class="col">
         @if ($showNote) 
-        <livewire:note-form :key="$this->noteFormId" :$id :$title :$text @saved="refresh" />
+        <livewire:note-form :key="$this->noteFormId" :$id :$title :$text :$tags @saved="refresh" />
         @endif
     </div>
 </div>

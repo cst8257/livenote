@@ -15,6 +15,7 @@ class Livenote extends Component
     public $id = '';
     public $title = 'Title';
     public $text = 'This is text';
+    public $tags = [];
     public $showNote = false;
 
     public function mount() {
@@ -39,9 +40,11 @@ class Livenote extends Component
     }
 
     public function updatedSearch () {
-        $this->notes = Note::where('title', 'like', "%{$this->search}%")
-            ->orWhere('text', 'like', "%{$this->search}%")
-            ->get();
+        $this->notes = Auth::user()
+            ->notes->filter(function ($note) {
+                return stripos($note->title, $this->search) !== false || 
+                stripos($note->text, $this->search) !== false;
+            });
     }
 
     #[On('show')]

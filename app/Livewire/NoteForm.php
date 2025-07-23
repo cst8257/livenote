@@ -11,6 +11,7 @@ class NoteForm extends Component
     public $id;
     public $title;
     public $text;
+    public $tags;
 
     public function save () {
         $this->validate([

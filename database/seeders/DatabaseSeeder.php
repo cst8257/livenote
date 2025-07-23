@@ -4,8 +4,10 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Note;
+use App\Models\Tag;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -31,5 +33,18 @@ class DatabaseSeeder extends Seeder
         Note::create(['title' => 'Learning Goals', 'text' => 'Complete online course on web development.', 'user_id' => 4]);
         Note::create(['title' => 'Daily Journal', 'text' => 'Reflect on today’s achievements and challenges.', 'user_id' => 5]);
         Note::create(['title' => 'Gift Ideas', 'text' => 'Consider buying a watch or a book for the birthday.', 'user_id' => 5]);
+
+        Tag::create(['name' => 'Personal']);
+        Tag::create(['name' => 'Work']);
+        Tag::create(['name' => 'Shopping']);
+        Tag::create(['name' => 'Fitness']);
+
+        DB::table('note_tag')->insert([
+            ['note_id' => 1, 'tag_id' => 2],
+            ['note_id' => 2, 'tag_id' => 1],
+            ['note_id' => 2, 'tag_id' => 3],
+            ['note_id' => 3, 'tag_id' => 1],
+            ['note_id' => 3, 'tag_id' => 4]
+        ]);
     }
 }
