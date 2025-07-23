@@ -9,17 +9,19 @@
             @error('text')<p class="text-danger">{{ $message }}</p>@enderror
         </div>
         <div class="form-group mb-3">
+            @foreach ($tagNames as $tag)
             <div class="form-check">
               <input 
                 class="form-check-input" 
                 type="checkbox" 
-                value="" 
-                id="checkbox"
+                value="{{ $tag->id }}" 
+                id="{{ $tag->name }}"
                 wire:model="tags">
-              <label class="form-check-label" for="checkbox">
-                Label
+              <label class="form-check-label" for="{{ $tag->name }}">
+                {{ $tag->name }}
               </label>
             </div>
+            @endforeach
         </div>
         <button class="btn btn-primary">Save</button>
     </div>

@@ -28,7 +28,11 @@ class Livenote extends Component
     }
 
     public function refresh () {
-        $this->notes = Auth::user()->notes;
+        $this->notes = Auth::user()->notes->map(function ($note) {
+            $note['tags'] = $note->tags->pluck('name');
+            return $note;
+        });
+
         $this->showNote = false;
     }
 
@@ -36,6 +40,7 @@ class Livenote extends Component
         $this->id = '';
         $this->title = '';
         $this->text = '';
+        $this->tags = [];
         $this->showNote = true;
     }
 
@@ -44,6 +49,10 @@ class Livenote extends Component
             ->notes->filter(function ($note) {
                 return stripos($note->title, $this->search) !== false || 
                 stripos($note->text, $this->search) !== false;
+            })
+            ->map(function ($note) {
+                $note['tags'] = $note->tags->pluck('name');
+                return $note;
             });
     }
 
@@ -53,6 +62,7 @@ class Livenote extends Component
         $this->id = $note->id;
         $this->title = $note->title;
         $this->text = $note->text;
+        $this->tags = $note->tags->pluck('id');
         $this->showNote = true;
     }
     

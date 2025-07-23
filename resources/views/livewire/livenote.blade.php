@@ -9,7 +9,7 @@
         @if (count($notes)) 
         <x-list-group>
             @foreach ($notes as $note)
-                <livewire:list-item :key="$note->id.'-'.$note->title" :$note @deleted="refresh" />
+                <livewire:list-item :key="$note->toJson()" :$note @deleted="refresh" />
             @endforeach
         </x-list-group>
         @else

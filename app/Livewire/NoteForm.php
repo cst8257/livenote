@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Note;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -25,11 +26,17 @@ class NoteForm extends Component
         $note->user_id = Auth::id();
         $note->save();
 
+        if (empty($this->id)) {
+            $note->tags()->attach($this->tags);
+        } else {
+            $note->tags()->sync($this->tags);
+        }
+
         $this->dispatch('saved');
     }
 
     public function render()
     {
-        return view('livewire.note-form');
+        return view('livewire.note-form', ['tagNames' => Tag::all()]);
     }
 }
